@@ -1,6 +1,3 @@
-from pprint import pprint
-
-
 def puzzle(data):
     total = 0
     for line in data:
