@@ -1,16 +1,25 @@
-cache = {}
+def shortest(grid, distance):
+    max_x = len(distance[0])
+    max_y = len(distance)
+    start = distance[0][0]
+    distance[max_y - 1][max_x - 1] = grid[max_y - 1][max_x - 1]
+    for y in range(max_y - 1, -1, -1):
+        for x in range(max_x - 1, -1, -1):
+            if x < max_x - 1:
+                value = distance[y][x] + grid[y][x + 1]
+                distance[y][x + 1] = min(distance[y][x + 1], value)
+            if x > 0:
+                value = distance[y][x] + grid[y][x - 1]
+                distance[y][x - 1] = min(distance[y][x - 1], value)
+            if y < max_y - 1:
+                value = distance[y][x] + grid[y + 1][x]
+                distance[y + 1][x] = min(distance[y + 1][x], value)
+            if y > 0:
+                value = distance[y][x] + grid[y - 1][x]
+                distance[y - 1][x] = min(distance[y - 1][x], value)
+    if distance[0][0] != start:
+        shortest(grid, distance)
 
-
-def shortest(grid, x, y):
-    if x == 0 and y == 0:
-        return 0
-    if (x, y) in cache:
-        return cache[(x, y)]
-    right = shortest(grid, x - 1, y) if x - 1 >= 0 else float('inf')
-    down = shortest(grid, x, y - 1) if y - 1 >= 0 else float('inf')
-    value = min(right, down) + grid[y][x]
-    cache[(x, y)] = value
-    return value
 
 def puzzle(data):
     total = 0
@@ -21,7 +30,9 @@ def puzzle(data):
         for chr in line:
             grid[-1].append(int(chr))
 
-    total = shortest(grid, len(grid[0]) - 1, len(grid)-1)
+    short = [[float('inf') for _ in row] for row in grid]
+    shortest(grid, short)
+    total = short[0][0] - grid[0][0]
     print("Answer: " + str(total))
 
 

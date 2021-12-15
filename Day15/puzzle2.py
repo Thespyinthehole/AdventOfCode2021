@@ -1,9 +1,4 @@
-import sys
-sys.setrecursionlimit(10000)
-cache = {}
-
-
-def grid_value(grid, x, y):
+def grid_value(grid, y, x):
     max_x = len(grid[0])
     max_y = len(grid)
     value = grid[y % max_y][x % max_x]
@@ -11,16 +6,28 @@ def grid_value(grid, x, y):
     scaled = (offset - 1) % 9 + 1
     return scaled
 
-def shortest(grid, x, y):
-    if x == 0 and y == 0:
-        return 0
-    if (x, y) in cache:
-        return cache[(x, y)]
-    right = shortest(grid, x - 1, y) if x - 1 >= 0 else float('inf')
-    down = shortest(grid, x, y - 1) if y - 1 >= 0 else float('inf')
-    value = min(right, down) + grid_value(grid, x, y)
-    cache[(x, y)] = value
-    return value
+
+def shortest(grid, distance):
+    max_x = len(distance[0])
+    max_y = len(distance)
+    start = distance[0][0]
+    distance[max_y - 1][max_x - 1] = grid_value(grid, max_y - 1, max_x - 1)
+    for y in range(max_y - 1, -1, -1):
+        for x in range(max_x - 1, -1, -1):
+            if x < max_x - 1:
+                value = distance[y][x] + grid_value(grid, y, x + 1)
+                distance[y][x + 1] = min(distance[y][x + 1], value)
+            if x > 0:
+                value = distance[y][x] + grid_value(grid, y, x - 1)
+                distance[y][x - 1] = min(distance[y][x - 1], value)
+            if y < max_y - 1:
+                value = distance[y][x] + grid_value(grid, y + 1, x)
+                distance[y + 1][x] = min(distance[y + 1][x], value)
+            if y > 0:
+                value = distance[y][x] + grid_value(grid, y - 1, x)
+                distance[y - 1][x] = min(distance[y - 1][x], value)
+    if distance[0][0] != start:
+        shortest(grid, distance)
 
 
 def puzzle(data):
@@ -31,7 +38,15 @@ def puzzle(data):
         grid.append([])
         for chr in line:
             grid[-1].append(int(chr))
-    total = shortest(grid, len(grid[0]) * 5 - 1, len(grid) * 5 - 1)
+
+    short = [
+        [
+            float('inf') for _ in range(len(grid[0]) * 5)
+        ]
+        for _ in range(len(grid) * 5)
+    ]
+    shortest(grid, short)
+    total = short[0][0] - grid[0][0]
     print("Answer: " + str(total))
 
 
