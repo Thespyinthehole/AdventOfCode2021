@@ -1,51 +1,87 @@
-Day01
-Puzzle 1 Time: 1.4667999999999972msPuzzle 2 Time: 951.7000000000032ns
+# Day01
+Puzzle 1 Time: 13.338500000000003ms
 
-Day02
-Puzzle 1 Time: 848.2999999999963nsPuzzle 2 Time: 735.7000000000058ns
+Puzzle 2 Time: 1.4562999999999937ms
 
-Day03
-Puzzle 1 Time: 1.8542000000000038msPuzzle 2 Time: 16.302899999999998ms
+# Day02
+Puzzle 1 Time: 1.7812999999999994ms
 
-Day04
-Puzzle 1 Time: 43.86670000000001msPuzzle 2 Time: 131.48489999999998ms
+Puzzle 2 Time: 1.1359000000000021ms
 
-Day05
-Puzzle 1 Time: 78.16879999999999msPuzzle 2 Time: 133.7236ms
+# Day03
+Puzzle 1 Time: 19.97130000000001ms
 
-Day06
-Puzzle 1 Time: 253.59999999999965nsPuzzle 2 Time: 538.799999999999ns
+Puzzle 2 Time: 41.37120000000001ms
 
-Day07
-Puzzle 1 Time: 160.60369999999998msPuzzle 2 Time: 263.2662ms
+# Day04
+Puzzle 1 Time: 76.8164ms
 
-Day08
-Puzzle 1 Time: 465.20000000000243nsPuzzle 2 Time: 5.137400000000004ms
+Puzzle 2 Time: 493.61060000000003ms
 
-Day09
-Puzzle 1 Time: 3.8452msPuzzle 2 Time: 857.1892ms
+# Day05
+Puzzle 1 Time: 337.99690000000004ms
 
-Day10
-Puzzle 1 Time: 1.2525000000000002msPuzzle 2 Time: 1.3948000000000016ms
+Puzzle 2 Time: 301.2443ms
 
-Day11
-Puzzle 1 Time: 11.368000000000004msPuzzle 2 Time: 31.325000000000006ms
+# Day06
+Puzzle 1 Time: 15.127199999999993ms
 
-Day12
-Puzzle 1 Time: 28.334400000000002msPuzzle 2 Time: 1006.8912999999999ms
+Puzzle 2 Time: 16.91169999999999ms
 
-Day13
-Puzzle 1 Time: 2.0686999999999998msPuzzle 2 Time: 3.683800000000001ms
+# Day07
+Puzzle 1 Time: 395.01419999999996ms
 
-Day14
-Puzzle 1 Time: 20.4014msPuzzle 2 Time: 22.949299999999997ms
+Puzzle 2 Time: 415.3505ms
 
-Day15
-Puzzle 1 Time: 31.891999999999996msPuzzle 2 Time: 2448.5980999999997ms
+# Day08
+Puzzle 1 Time: 11.676300000000001ms
 
-Day16
-Puzzle 1 Time: 1.0818000000000008msPuzzle 2 Time: 1.1859000000000002ms
+Puzzle 2 Time: 21.027800000000013ms
 
-Day17
-Puzzle 1 Time: 68.90000000000369nsPuzzle 2 Time: 93.5415ms
+# Day09
+Puzzle 1 Time: 12.815599999999996ms
 
+Puzzle 2 Time: 1160.1522999999997ms
+
+# Day10
+Puzzle 1 Time: 13.037000000000006ms
+
+Puzzle 2 Time: 10.700599999999998ms
+
+# Day11
+Puzzle 1 Time: 49.13590000000001ms
+
+Puzzle 2 Time: 64.58500000000001ms
+
+# Day12
+Puzzle 1 Time: 75.83120000000001ms
+
+Puzzle 2 Time: 2508.4885000000004ms
+
+# Day13
+Puzzle 1 Time: 22.419600000000006ms
+
+Puzzle 2 Time: 20.210900000000002ms
+
+# Day14
+Puzzle 1 Time: 35.37070000000001ms
+
+Puzzle 2 Time: 61.26049999999999ms
+
+# Day15
+Puzzle 1 Time: 45.092099999999995ms
+
+Puzzle 2 Time: 4664.0096ms
+
+# Day16
+Puzzle 1 Time: 14.935399999999994ms
+
+Puzzle 2 Time: 1.894899999999991ms
+
+# Day17
+Puzzle 1 Time: 126.10000000000399ns
+
+Puzzle 2 Time: 393.8096000000001ms
+
+# Total
+Total Time: 11317.7059ms
