@@ -1,7 +1,3 @@
-import math
-from typing import Mapping
-
-
 def puzzle(data):
     total = 0
     area = [[], []]
