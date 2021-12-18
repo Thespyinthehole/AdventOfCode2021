@@ -1,7 +1,7 @@
-from os import getlogin
 import time
-from copy import deepcopy
 import math
+import itertools
+from copy import deepcopy
 
 
 def depth(L):
@@ -52,48 +52,79 @@ def get_right(number, path):
 def set_left(number, path, value):
     if path == []:
         if isinstance(number[0], list):
-            set_left(number[0], [], value)
+            lhs = set_left(number[0], [], value)
+            return [lhs, number[1]]
         else:
-            number[0] = number[0] + value
+            return [number[0] + value, number[1]]
+    
+    if len(path) == 1 and not isinstance(number[path[0]], list):
+        if path[0] == 0:
+            return [number[path[0]] + value, number[1]]
+        return [number[0], number[path[0]] + value]
     else:
-        if len(path) == 1 and not isinstance(number[path[0]], list):
-            number[path[0]] = number[path[0]] + value
-        else:
-            set_left(number[path[0]], path[1:], value)
+        side = set_left(number[path[0]], path[1:], value)
+        if path[0] == 0:
+            return [side, number[1]]
+        return [number[0], side]
+
+    # if path == []:
+    #     if isinstance(number[1], list):
+    #         rhs = set_right(number[1], [], value)
+    #         return [number[0], rhs]
+    #     else:
+    #         return [number[0], number[1] + value]
+
+    # if len(path) == 1 and not isinstance(number[path[0]], list):
+    #     if path[0] == 0:
+    #         return [number[path[0]] + value, number[1]]
+    #     return [number[0], number[path[0]] + value]
+    # else:
+    #     side = set_right(number[path[0]], path[1:], value)
+    #     if path[0] == 0:
+    #         return [side, number[1]]
+    #     return [number[0], side]
 
 
 def set_right(number, path, value):
     if path == []:
         if isinstance(number[1], list):
-            set_right(number[1], [], value)
+            rhs = set_right(number[1], [], value)
+            return [number[0], rhs]
         else:
-            number[1] = number[1] + value
+            return [number[0], number[1] + value]
+
+    if len(path) == 1 and not isinstance(number[path[0]], list):
+        if path[0] == 0:
+            return [number[path[0]] + value, number[1]]
+        return [number[0], number[path[0]] + value]
     else:
-        if len(path) == 1 and not isinstance(number[path[0]], list):
-            number[path[0]] = number[path[0]] + value
-        else:
-            set_right(number[path[0]], path[1:], value)
+        side = set_right(number[path[0]], path[1:], value)
+        if path[0] == 0:
+            return [side, number[1]]
+        return [number[0], side]
 
 
 def set_value(number, path):
     if len(path) > 1:
-        set_value(number[path[0]], path[1:])
+        side = set_value(number[path[0]], path[1:])        
+        if path[0] == 0:
+            return [side, number[1]]
+        return [number[0], side]
     else:
-        number[path[0]] = 0
+        if path[0] == 0:
+            return [0, number[1]]
+        return [number[0], 0]
 
 
 def explode(number):
-    output = deepcopy(number)
     path, [lhs, rhs] = get_depth_path(number)
-    lhs_path = get_left(output, path)
+    lhs_path = get_left(number, path)
     if lhs_path:
-        set_right(output, lhs_path, lhs)
-    rhs_path = get_right(output, path)
+        number = set_right(number, lhs_path, lhs)
+    rhs_path = get_right(number, path)
     if rhs_path:
-        set_left(output, rhs_path, rhs)
-
-    set_value(output, path)
-    return output
+        number = set_left(number, rhs_path, rhs)
+    return set_value(number, path)
 
 
 def flatten(list_of_lists):
@@ -109,13 +140,11 @@ def split(number):
         if isinstance(v, list):
             updated, use = split(v)
             if use:
-                out = deepcopy(number)
-                out[i] = updated
-                return out, True
+                number[i] = updated
+                return number, True
         elif v >= 10:
-            out = deepcopy(number)
-            out[i] = [math.floor(v / 2), math.ceil(v / 2)]
-            return out, True
+            number[i] = [math.floor(v / 2), math.ceil(v / 2)]
+            return number, True
     return number, False
 
 
@@ -146,13 +175,19 @@ def puzzle(data):
         line = line.replace('\n', '')
         numbers.append(eval(line))
 
+    cross = itertools.product(numbers, numbers)
+    # for i, x in enumerate(numbers):
+    #     for o, y in enumerate(numbers):
+    #         if i == o:
+    #             continue
+    # print(explode([[[[0, 7], 4], [7, [[8, 4], 9]]], [1, 1]]))
+    for (x, y) in cross:
+        if x == y:
+            continue
+        total = max(total, magnitude(add(x, y)))
 
-    for i, x in enumerate(numbers):
-        for o, y in enumerate(numbers):
-            if i <= o:
-                continue
-            total = max(total, magnitude(add(x, y)), magnitude(add(y, x)))
     print("Answer: " + str(total))
+
 
 data = open(__file__.replace('.py', 'input'))
 start = time.perf_counter()
