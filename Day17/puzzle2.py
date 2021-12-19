@@ -1,4 +1,6 @@
+import time
 import math
+
 
 def overshot(s, area):
     return s[0] > area[0][1] or s[1] < area[1][0]
@@ -6,6 +8,7 @@ def overshot(s, area):
 
 def in_area(s, area):
     return s[0] >= area[0][0] and s[1] <= area[1][1]
+
 
 def run_path(x, y, area):
     s = (0, 0)
@@ -20,6 +23,7 @@ def run_path(x, y, area):
         if u[0] == 0:
             a = (0, -1)
     return False
+
 
 def puzzle(data):
     total = 0
@@ -47,7 +51,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

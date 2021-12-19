@@ -2,6 +2,7 @@ import time
 import math
 import itertools
 
+
 def get_beacon_pairs(scanner_a, scanner_b, distances):
     beacons = {}
     for distance in distances:
@@ -122,7 +123,7 @@ def puzzle(data):
 
     aligned = [False for _, _ in enumerate(scanners)]
     aligned[0] = True
-    positions = [(0,0,0)]
+    positions = [(0, 0, 0)]
     while False in aligned:
         for i, scanner_a in enumerate(scanners):
             for o, scanner_b in enumerate(scanners):
@@ -138,8 +139,7 @@ def puzzle(data):
                 scanners[o] = alignment
                 aligned[o] = True
 
-
-    for ((x0, y0, z0), (x1, y1, z1)) in itertools.permutations(positions,2):
+    for ((x0, y0, z0), (x1, y1, z1)) in itertools.permutations(positions, 2):
         xdis = abs(x0 - x1)
         ydis = abs(y0 - y1)
         zdis = abs(z0 - z1)

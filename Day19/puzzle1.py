@@ -1,6 +1,7 @@
 import time
 import math
 
+
 def get_beacon_pairs(scanner_a, scanner_b, distances):
     beacons = {}
     for distance in distances:

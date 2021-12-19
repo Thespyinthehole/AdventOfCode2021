@@ -1,3 +1,6 @@
+import time
+
+
 def foldX(points, position):
     folded = set()
     for point in points:
@@ -20,6 +23,7 @@ def foldY(points, position):
             y = position - (y - position)
         folded.add((x, y))
     return folded
+
 
 def puzzle(data):
     total = 0
@@ -45,7 +49,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

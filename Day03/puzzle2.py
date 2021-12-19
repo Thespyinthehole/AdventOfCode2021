@@ -1,4 +1,7 @@
 
+import time
+
+
 def getCount(list):
     length = len(list[0])
     counts = [0 for _ in range(length)]
@@ -40,7 +43,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

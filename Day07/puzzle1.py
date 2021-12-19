@@ -1,10 +1,14 @@
 
 
+import time
+
+
 def getFuel(target, distances):
     fuel = 0
     for key in distances:
         fuel = fuel + abs(target - key) * distances[key]
     return fuel
+
 
 def puzzle(data):
     actualFuel = float('inf')
@@ -18,10 +22,10 @@ def puzzle(data):
             if value in distances:
                 distances[value] = distances[value] + 1
             else:
-                distances[value] = 1 
+                distances[value] = 1
             minV = min(minV, value)
             maxV = max(maxV, value)
-            
+
         for value in range(minV, maxV):
             fuel = getFuel(value, distances)
             if fuel < actualFuel:
@@ -30,7 +34,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

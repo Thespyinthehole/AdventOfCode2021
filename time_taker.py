@@ -22,16 +22,19 @@ def average(filename, times=1):
 
 readme = open('README.md', 'w')
 full = 0
-for day in range(17):
+for day in range(19):
     dir = 'Day' + str(day + 1).zfill(2)
     readme.write('# ' + dir + '\n')
 
     avg1, total1, ns1 = average(dir + '/puzzle1.py')
     avg2, total2, ns2 = average(dir + '/puzzle2.py')
-    full = full + (total1 / 1000 if ns1 else total1)  + (total2 / 1000 if ns2 else total2)
-    readme.write('Puzzle 1 Time: ' + str(avg1) + ('ns\n\n' if ns1 else 'ms\n\n'))
-    readme.write('Puzzle 2 Time: ' + str(avg2) + ('ns\n\n' if ns2 else 'ms\n\n'))
-    
+    full = full + (total1 / 1000 if ns1 else total1) + \
+        (total2 / 1000 if ns2 else total2)
+    readme.write('Puzzle 1 Time: ' + str(avg1) +
+                 ('ns\n\n' if ns1 else 'ms\n\n'))
+    readme.write('Puzzle 2 Time: ' + str(avg2) +
+                 ('ns\n\n' if ns2 else 'ms\n\n'))
+
 readme.write('# Total\n')
 readme.write('Total Time: ' + str(full) + 'ms')
 readme.close()

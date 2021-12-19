@@ -1,3 +1,6 @@
+import time
+
+
 def energy_burst(x, y, grid, searched):
     if ((x, y) in searched) or x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]):
         return
@@ -41,7 +44,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

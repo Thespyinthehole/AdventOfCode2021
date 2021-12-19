@@ -6,6 +6,7 @@ import math
 def depth(L):
     return isinstance(L, list) and len(L) and max(map(depth, L)) + 1
 
+
 def deepest(L):
     max_depth = 0
     index = 0

@@ -1,3 +1,4 @@
+import time
 from copy import deepcopy
 
 
@@ -62,11 +63,9 @@ def puzzle(data):
                         total = total + board[x][y]
             print("Answer: " + str(total * int(draw)))
             break
-    
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

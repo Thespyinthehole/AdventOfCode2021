@@ -1,3 +1,6 @@
+import time
+
+
 def puzzle(data):
     total = 0
     for line in data:
@@ -43,7 +46,8 @@ def puzzle(data):
             else:
                 digitMap[2] = s
 
-        inverseDigitMap = {''.join(value): key for key, value in digitMap.items()}
+        inverseDigitMap = {''.join(value): key for key,
+                           value in digitMap.items()}
         output = ''
         for d in outData:
             key = ''.join(set(sorted(d)))
@@ -53,7 +57,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

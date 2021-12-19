@@ -1,3 +1,6 @@
+import time
+
+
 def foldX(points, position):
     folded = set()
     for point in points:
@@ -60,7 +63,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

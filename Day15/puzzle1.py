@@ -1,3 +1,6 @@
+import time
+
+
 def shortest(grid, distance):
     max_x = len(distance[0])
     max_y = len(distance)
@@ -37,7 +40,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

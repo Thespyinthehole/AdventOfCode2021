@@ -1,3 +1,4 @@
+import time
 from typing import Counter
 
 
@@ -45,7 +46,7 @@ def puzzle(data):
         combo = template[i - 1] + template[i]
         value = rule_after_days(rules, combo, 40)
         count.update(value)
-        
+
         count[combo[0]] -= 1
         count[combo[1]] -= 1
     count = sorted(count.items(), key=lambda pair: pair[1])
@@ -54,7 +55,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

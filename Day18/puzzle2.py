@@ -56,7 +56,7 @@ def set_left(number, path, value):
             return [lhs, number[1]]
         else:
             return [number[0] + value, number[1]]
-    
+
     if len(path) == 1 and not isinstance(number[path[0]], list):
         if path[0] == 0:
             return [number[path[0]] + value, number[1]]
@@ -106,7 +106,7 @@ def set_right(number, path, value):
 
 def set_value(number, path):
     if len(path) > 1:
-        side = set_value(number[path[0]], path[1:])        
+        side = set_value(number[path[0]], path[1:])
         if path[0] == 0:
             return [side, number[1]]
         return [number[0], side]

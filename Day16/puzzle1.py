@@ -1,3 +1,6 @@
+import time
+
+
 def parse_literal(bits, offset):
     number = ''
     while(bits[offset] == '1'):
@@ -55,7 +58,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

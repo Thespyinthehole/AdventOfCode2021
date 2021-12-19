@@ -1,3 +1,6 @@
+import time
+
+
 def generate_paths(cave, caves, path=[], small=[]):
     new_path = path.copy()
     new_path.append(cave)
@@ -16,6 +19,7 @@ def generate_paths(cave, caves, path=[], small=[]):
         for next in next_paths:
             out_paths.append([passage] + next)
     return out_paths
+
 
 def puzzle(data):
     total = 0
@@ -45,7 +49,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

@@ -1,5 +1,8 @@
 
 
+import time
+
+
 def puzzle(data):
     counts = []
     first = True
@@ -28,7 +31,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

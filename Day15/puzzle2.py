@@ -1,3 +1,6 @@
+import time
+
+
 def grid_value(grid, y, x):
     max_x = len(grid[0])
     max_y = len(grid)
@@ -51,7 +54,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

@@ -1,6 +1,8 @@
 
+import time
 from copy import deepcopy
 from pprint import pprint
+
 
 def checkBoard(board, x, y):
     count = 0
@@ -76,7 +78,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

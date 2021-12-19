@@ -1,4 +1,7 @@
 
+import time
+
+
 def puzzle(data):
     points = {x: 0 for x in range(9)}
     for line in data:
@@ -20,7 +23,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

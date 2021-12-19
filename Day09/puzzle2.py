@@ -1,3 +1,6 @@
+import time
+
+
 def findBasin(grid, x, y, basin):
     if grid[y][x] == 9 or (x, y) in basin:
         return []
@@ -39,7 +42,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()

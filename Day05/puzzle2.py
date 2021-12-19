@@ -1,4 +1,7 @@
 
+import time
+
+
 def puzzle(data):
     points = {}
     lines = []
@@ -9,7 +12,6 @@ def puzzle(data):
         v2 = [int(line[1][0]), int(line[1][1])]
         dx = v2[0] - v1[0]
         dy = v2[1] - v1[1]
-
 
         if dx != 0:
             m = dy / dx
@@ -45,7 +47,6 @@ def puzzle(data):
 
 
 data = open(__file__.replace('.py', 'input'))
-import time
 start = time.perf_counter()
 puzzle(data.readlines())
 end = time.perf_counter()
