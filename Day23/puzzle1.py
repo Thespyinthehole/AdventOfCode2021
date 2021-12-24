@@ -2,101 +2,66 @@ import time
 import heapq
 
 
-def print_map(positions):
-    pos_map = {y: x for (x, y) in positions}
-    for y in range(5):
-        for x in range(13):
-            if (x, y) in pos_map:
-                print(pos_map[(x, y)], end='')
-                continue
-            if y == 1 and x > 0 and x < 12:
-                print(' ', end='')
-                continue
-            if y > 1 and x == 3 and y < 4:
-                print(' ', end='')
-                continue
-            if y > 1 and x == 5 and y < 4:
-                print(' ', end='')
-                continue
-            if y > 1 and x == 7 and y < 4:
-                print(' ', end='')
-                continue
-            if y > 1 and x == 9 and y < 4:
-                print(' ', end='')
-                continue
-            print('#', end='')
-        print()
+def all_room_moves(type):
+    if type == 'A':
+        return [(3, 2), (3, 3)]
+    if type == 'B':
+        return [(5, 2), (5, 3)]
+    if type == 'C':
+        return [(7, 2), (7, 3)]
+    if type == 'D':
+        return [(9, 2), (9, 3)]
 
 
-def moves(position, positions):
-    filled_positions = {x: y for (y, x) in positions}
-    if (position[1][0], position[1][1] - 1) in filled_positions:
+def room_moves(type, positions):
+    room = all_room_moves(type)
+    if not room[1] in positions:
+        return [room[1]]
+    if positions[room[1]] == type:
+        return [room[0]]
+    return []
+
+def hallway_moves():
+    return [(1, 1), (2, 1), (4, 1), (6, 1), (8, 1), (10, 1), (11, 1)]
+
+
+def is_blocked(start, end, positions):
+    for hallway in hallway_moves():
+        if not hallway in positions:
+            continue
+        if (start[0] - hallway[0]) * (end[0] - hallway[0]) < 0:
+            return True
+
+    if start[1] == 3 and (start[0], 2) in positions:
+        return True
+    return end[1] == 3 and (end[0], 2) in positions
+
+
+def in_room_safely(type, position, positions):
+    x = {'A': 3, 'B': 5, 'C': 7, 'D': 9}[type]
+    if position[0] != x:
+        return False
+    if position[1] == 3:
+        return True
+    return positions[(x, 3)] == type
+
+
+def moves(pod, pods):
+    positions = {x: y for (y, x) in pods}
+    if in_room_safely(pod[0], pod[1], positions):
         return []
-    if position[0] == 'A' and position[1][0] == 3:
-        if position[1][1] == 3:
-            return []
-        if filled_positions[(3, 3)] == 'A':
-            return []
-    if position[0] == 'B' and position[1][0] == 5:
-        if position[1][1] == 3:
-            return []
-        if filled_positions[(5, 3)] == 'B':
-            return []
-    if position[0] == 'C' and position[1][0] == 7:
-        if position[1][1] == 3:
-            return []
-        if filled_positions[(7, 3)] == 'C':
-            return []
-    if position[0] == 'D' and position[1][0] == 9:
-        if position[1][1] == 3:
-            return []
-        if filled_positions[(9, 3)] == 'D':
-            return []
+    all_moves = room_moves(pod[0], positions)
+    if pod[1][1] != 1:
+        all_moves = all_moves + hallway_moves()
 
-    mid_points = [(4, 1), (6, 1), (8, 1)]
-
-    possible_moves = [(1, 1), (2, 1)] + mid_points + [(10, 1), (11, 1)]
-    if position[1][1] == 1:
-        possible_moves = []
-
-    if position[0] == 'A':
-        if (3, 3) in filled_positions and filled_positions[(3, 3)] == 'A':
-            possible_moves = possible_moves + [(3, 2), (3, 3)]
-        else:
-            possible_moves = possible_moves + [(3, 3)]
-    if position[0] == 'B':
-        if (5, 3) in filled_positions and filled_positions[(5, 3)] == 'B':
-            possible_moves = possible_moves + [(5, 2), (5, 3)]
-        else:
-            possible_moves = possible_moves + [(5, 3)]
-    if position[0] == 'C':
-        if (7, 3) in filled_positions and filled_positions[(7, 3)] == 'C':
-            possible_moves = possible_moves + [(7, 2), (7, 3)]
-        else:
-            possible_moves = possible_moves + [(7, 3)]
-    if position[0] == 'D':
-        if (9, 3) in filled_positions and filled_positions[(9, 3)] == 'D':
-            possible_moves = possible_moves + [(9, 2), (9, 3)]
-        else:
-            possible_moves = possible_moves + [(9, 3)]
-
-    possible_moves = [x for x in possible_moves if not x in filled_positions]
-    moves = []
-    mid_points = [x for x in mid_points if x in filled_positions]
-    for move in possible_moves:
-        success = True
-        for point in mid_points:
-            if point[0] < position[1][0] and move[0] < point[0]:
-                success = False
-                break
-            if point[0] > position[1][0] and move[0] > point[0]:
-                success = False
-                break
-        if success:
-            moves.append(move)
-    return moves
-
-
+    all_moves = [
+        x
+        for x in all_moves
+        if (not x in positions) and
+        not is_blocked(pod[1], x, positions)
+    ]
+    return all_moves
+    
 def is_done(positions):
     a = 0
     b = 0
@@ -126,18 +91,11 @@ def cost(position, move):
 
 
 def add_states(board, base_energy, queue):
-    easy_moves = board
     for position in board:
         _moves = moves(position, board)
-        if len(_moves) == 1:
-            easy_moves = [x for x in easy_moves if x[1] != position[1]]
-            easy_moves.append((position[0], _moves[0]))
-            base_energy = base_energy + cost(position, _moves[0])
-    for position in easy_moves:
-        _moves = moves(position, easy_moves)
         for _move in _moves:
             energy = base_energy + cost(position, _move)
-            new_state = [x for x in easy_moves if x[1] != position[1]]
+            new_state = [x for x in board if x[1] != position[1]]
             new_state.append((position[0], _move))
             heapq.heappush(queue, (energy, sorted(new_state)))
 
@@ -148,7 +106,7 @@ def next_state(queue, done):
     board = state[1]
     if str(board) in done:
         return -1
-    done.append(str(board))
+    done.add(str(board))
     if is_done(board):
         return base_energy
     add_states(board, base_energy, queue)
@@ -169,7 +127,7 @@ def puzzle(data):
                     x = x + 2
             y = y + 1
 
-    done = []
+    done = set()
     queue = []
     heapq.heappush(queue, (0, positions))
 
