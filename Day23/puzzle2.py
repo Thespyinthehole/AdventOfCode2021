@@ -1,33 +1,6 @@
 import time
 import heapq
 
-
-def print_map(positions):
-    pos_map = {y: x for (x, y) in positions}
-    for y in range(7):
-        for x in range(13):
-            if (x, y) in pos_map:
-                print(pos_map[(x, y)], end='')
-                continue
-            if y == 1 and x > 0 and x < 12:
-                print(' ', end='')
-                continue
-            if y > 1 and x == 3 and y < 4:
-                print(' ', end='')
-                continue
-            if y > 1 and x == 5 and y < 4:
-                print(' ', end='')
-                continue
-            if y > 1 and x == 7 and y < 4:
-                print(' ', end='')
-                continue
-            if y > 1 and x == 9 and y < 4:
-                print(' ', end='')
-                continue
-            print('#', end='')
-        print()
-
-
 def all_room_moves(type):
     if type == 'A':
         return [(3, 2), (3, 3), (3, 4), (3, 5)]
@@ -134,7 +107,6 @@ def cost(position, move):
 
 
 def add_states(board, base_energy, queue):
-    # print_map(board)
     for position in board:
         _moves = moves(position, board)
         for _move in _moves:
