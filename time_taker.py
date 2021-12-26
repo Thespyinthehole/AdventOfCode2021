@@ -22,7 +22,7 @@ def average(filename, times=1):
 
 readme = open('README.md', 'w')
 full = 0
-for day in range(19):
+for day in range(25):
     dir = 'Day' + str(day + 1).zfill(2)
     readme.write('# ' + dir + '\n')
 
